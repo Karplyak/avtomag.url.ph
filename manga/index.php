@@ -6,8 +6,9 @@ function functionName() {
 var text = [
    //[text, x, y, w, h]
      ["ЕПОХА ВІЙН",31,129,230,120]
-    ,["text2",10,10,50,50]
-	,["text3",10,10,50,50]
+    ,["КОРОЛЬ ДЕМОНІВ СПРОБУВАВ ЗАХОПИТИ СВІТ, І ЙОМУ ПРОТИСТОЯВ ГЕРОЙ",690, 950, 258, 253]
+	,["І В ЦІЙ ЖОРСТОКІЙ БИТВІ", 24, 1125, 50, 180]
+	,["ПЕРЕМІГ ГЕРОЙ", 795, 1466, 200, 202]
 ];
 var img = document.getElementById("image"); //get x and y
 var width = img.clientWidth;
@@ -16,7 +17,7 @@ var nwidth = img.naturalWidth;
 var nheight = img.naturalHeight;
 var ch = parseFloat(img.height/nheight).toPrecision(2);
 var cw = parseFloat(img.width/nwidth).toPrecision(2);
-alert(img.width + 'x' + img.height +' c width'+cw+'c height'+ch);
+alert(img.width + 'x' + img.height +' c width'+cw+'c height'+ch+' len'+text.length);
 
 var div = document.getElementById("imgdiv");
 //<div style="z-index:2;position:absolute;">Текст</div>
@@ -24,13 +25,15 @@ var newdiv =document.createElement('div');
 //newdiv.setAttribute("style","position: absolute; left: "+text[0][1]*0.7+"px; top: "+text[0][2]*0.7+"px; width:"+text[0][3]+"px;height:"+text[0][4]+"px; background-color:white; ");
 //newdiv.innerHTML = "<label>Ура!</strong> Вы прочитали это важное сообщение.";
 
-
+for (i = 0; i < text.length; i++) { 
 var label =document.createElement("LABEL");
 label.setAttribute("for","image");
-label.setAttribute("style","position: absolute; left: "+text[0][1]*cw+"px; top: "+text[0][2]*ch+"px; width:"+text[0][3]*cw+"px;height:"+text[0][4]*ch+"px; background-color:white; ");
-label.innerHTML = text[0][0];
+label.setAttribute("style","position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white; ");
+label.innerHTML = text[i][0];
 newdiv.appendChild(label);
 div.appendChild(newdiv);
+}
+
 }
 
 </script>
