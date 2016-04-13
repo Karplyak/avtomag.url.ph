@@ -36,8 +36,19 @@ div.appendChild(newdiv);
 }
 
 }
-function isEllipsisActive(e) {
-     return (e.offsetWidth < e.scrollWidth);
+function isEllipsisActive(e) 
+{
+   var curOverflow = el.style.overflow;
+
+   if ( !curOverflow || curOverflow === "visible" )
+      el.style.overflow = "hidden";
+
+   var isOverflowing = el.clientWidth < el.scrollWidth 
+      || el.clientHeight < el.scrollHeight;
+
+   el.style.overflow = curOverflow;
+
+   return isOverflowing;
 }
 </script>
 	<main role="main">
@@ -62,7 +73,7 @@ function isEllipsisActive(e) {
 		</select>
 		
 		<!--</form>-->
-		<button style=" background-color:white;height:100%;width:100%;" onclick="isEllipsisActive(document.getElementById("label0"));">Назад</button>
+		<button style=" background-color:white;height:100%;width:100%;" onclick="isEllipsisActive(document.getElementById('label0'));">Назад</button>
 		</div>
 		<div style="float:right; width:15%; background-color:white;height:100%;";>
 		<!--<form name="form2"  action="#" method="get"> -->
