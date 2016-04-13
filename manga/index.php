@@ -28,14 +28,17 @@ var newdiv =document.createElement('div');
 for (i = 0; i < text.length; i++) { 
 var label =document.createElement("LABEL");
 label.setAttribute("for","image");
-label.setAttribute("style","position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white; text-align: center;vertical-align: middle; ");
+label.setAttribute("style","text-align: center; vertical-align: middle; position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white;  ");
 label.innerHTML = text[i][0];
+label.setAttribute("id","label"+i);
 newdiv.appendChild(label);
 div.appendChild(newdiv);
 }
 
 }
-
+function isEllipsisActive(e) {
+     return (e.offsetWidth < e.scrollWidth);
+}
 </script>
 	<main role="main">
 
@@ -59,7 +62,7 @@ div.appendChild(newdiv);
 		</select>
 		
 		<!--</form>-->
-		<button style=" background-color:white;height:100%;width:100%;" onclick="functionName();">Назад</button>
+		<button style=" background-color:white;height:100%;width:100%;" onclick="isEllipsisActive(document.getElementById("label0"));">Назад</button>
 		</div>
 		<div style="float:right; width:15%; background-color:white;height:100%;";>
 		<!--<form name="form2"  action="#" method="get"> -->
