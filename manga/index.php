@@ -2,7 +2,6 @@
 
 <?php include 'header.php'; ?>
 <script>
-function functionName() {
 var text = [
    //[text, x, y, w, h]
      ["ЕПОХА ВІЙН",31,129,230,120]
@@ -10,6 +9,10 @@ var text = [
 	,["І В ЦІЙ ЖОРСТОКІЙ БИТВІ", 24, 1125, 150, 180]
 	,["ПЕРЕМІГ ГЕРОЙ", 795, 1466, 200, 202]
 ];
+
+
+function functionName() {
+
 var img = document.getElementById("image"); //get x and y
 var width = img.clientWidth;
 var height = img.clientHeight;
@@ -29,7 +32,7 @@ for (i = 0; i < text.length; i++) {
 var label = document.createElement("LABEL");
 label.setAttribute("for","image");
 label.setAttribute("style","text-align: center; vertical-align: middle; position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white;  ");
- label.style.fontSize="30px";
+label.style.fontSize="30px";
 label.innerHTML = text[i][0];
 label.setAttribute("id","label"+i);
 newdiv.appendChild(label);
