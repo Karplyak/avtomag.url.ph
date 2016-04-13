@@ -51,9 +51,23 @@ function isEllipsisActive(el)
       || el.clientHeight < el.scrollHeight;
 
    el.style.overflow = curOverflow;
-  alert('Text is ov-fl '+isOverflowing);
+ // alert('Text is ov-fl '+isOverflowing);
    return isOverflowing;
 }
+
+function testLabel(){
+	for (i = 0; i < text.length; i++) {
+		var tlabel = document.getElementById("label"+i);
+		
+			while (isEllipsisActive(tlabel)) {
+				var sz =parseInt() tlabel.style.fontSize);
+				tlabel.style.fontSize=sz-1+"px";
+			}
+		
+		
+	}
+}
+
 </script>
 	<main role="main">
 
@@ -77,7 +91,7 @@ function isEllipsisActive(el)
 		</select>
 		
 		<!--</form>-->
-		<button style=" background-color:white;height:100%;width:100%;" onclick="isEllipsisActive(document.getElementById('label0'));">Назад</button>
+		<button style=" background-color:white;height:100%;width:100%;" onclick="testLabel();">Назад</button>
 		</div>
 		<div style="float:right; width:15%; background-color:white;height:100%;";>
 		<!--<form name="form2"  action="#" method="get"> -->
