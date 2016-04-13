@@ -28,7 +28,7 @@ var newdiv =document.createElement('div');
 for (i = 0; i < text.length; i++) { 
 var label =document.createElement("LABEL");
 label.setAttribute("for","image");
-label.setAttribute("style","position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white; ");
+label.setAttribute("style","position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white; text-align: center;vertical-align: middle; ");
 label.innerHTML = text[i][0];
 newdiv.appendChild(label);
 div.appendChild(newdiv);
