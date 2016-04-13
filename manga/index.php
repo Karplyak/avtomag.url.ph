@@ -47,7 +47,7 @@ function isEllipsisActive(e)
       || el.clientHeight < el.scrollHeight;
 
    el.style.overflow = curOverflow;
-
+  alert('Text is ov-fl '+isOverflowing);
    return isOverflowing;
 }
 </script>
