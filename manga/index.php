@@ -87,10 +87,10 @@ div.appendChild(newdiv);
 
 		
 		if(array_key_exists($_GET["page"], $data_page)){
-			echo '<img src="'.$data_page[$_GET["page"]].'" style=" width:100%;position: relative;" alt="image" id="image" />'; 
+			echo '<img src="'.$data_page[$_GET["page"]].'" style=" width:100%;position: relative;" alt="image" id="image" onload="functionName();"/>'; 
 		} else {
 			if(!isset($_GET["page"])){
-			echo '<img src="'.$data_page[1].'" style=" width:100%;position: relative;" alt="image" id="image" />'; 
+			echo '<img src="'.$data_page[1].'" style=" width:100%;position: relative;" alt="image" id="image" onload="functionName();"/>'; 
 		} else{
 			echo 'no images';}
 		}
