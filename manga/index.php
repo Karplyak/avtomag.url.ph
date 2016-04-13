@@ -60,7 +60,7 @@ function testLabel(){
 		var tlabel = document.getElementById("label"+i);
 		
 			while (isEllipsisActive(tlabel)) {
-				var sz =parseInt() tlabel.style.fontSize);
+				var sz =parseInt(tlabel.style.fontSize);
 				tlabel.style.fontSize=sz-1+"px";
 			}
 		
