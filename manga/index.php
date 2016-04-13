@@ -29,7 +29,7 @@ for (i = 0; i < text.length; i++) {
 var label = document.createElement("LABEL");
 label.setAttribute("for","image");
 label.setAttribute("style","text-align: center; vertical-align: middle; position: absolute; left: "+text[i][1]*cw+"px; top: "+text[i][2]*ch+"px; width:"+text[i][3]*cw+"px;height:"+text[i][4]*ch+"px; background-color:white;  ");
- label.s.style.fontSize="30px";
+ label.style.fontSize="30px";
 label.innerHTML = text[i][0];
 label.setAttribute("id","label"+i);
 newdiv.appendChild(label);
