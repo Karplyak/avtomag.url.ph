@@ -168,18 +168,18 @@ if ($conn->connect_error) {
 //mysql_select_db('u450252009_autom') or die('Не удалось выбрать базу данных');
 
 // Выполняем SQL-запрос
-/*$query = 'SELECT db_manga.id, db_manga.name, db_chapter.N_chapter,db_page.N_page, db_page.path
-FROM db_manga LEFT JOIN manga.db_chapter ON db_manga.id=db_chapter.id_manga 
-RIGHT JOIN manga.db_PAGE ON db_chapter.id=db_page.id_chapter
-where db_manga.id='.$id.' order by db_page.N_page';
+
 //$result = mysql_query($query) or die('Запрос не удался: ' . mysql_error());
-*/
-$query = 'SELECT db_manga.id, db_manga.name, db_chapter.N_chapter,db_page.N_page, db_page.path FROM db_manga 
+
+/*$query = 'SELECT id, text, x, y, width, height FROM db_textbox 
 left join db_chapter on db_manga.id=db_chapter.id_manga
     right join db_page on db_chapter.id=db_page.id_chapter
-     WHERE db_manga.id='.$id.' order by db_page.N_page';
+     WHERE db_manga.id='.$id.' order by db_page.N_page';*/
 
-$result = $conn->query($query) or die('Запрос не удался: ' . mysql_error());
+	 $query = 'SELECT id, text, x, y, width, height FROM db_textbox 
+     WHERE id_page='.$page;
+
+	 $result = $conn->query($query) or die('Запрос не удался: ' . mysql_error());
 
 $array_textbox=array();
 
