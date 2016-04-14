@@ -2,13 +2,15 @@
 
 <?php include 'header.php'; ?>
 <script>
-var text = [
+var text = <?php echo json_encode($array_textbox) ?>;
+/*[
    //[text, x, y, w, h]
      ["ЕПОХА ВІЙН",31,129,230,120]
-    ,["КОРОЛЬ ДЕМОНІВ СПРОБУВАВ ЗАХОПИТИ СВІТ, І ЙОМУ ПРОТИСТОЯВ ГЕРОЙ",690, 950, 258, 253]
+    ,["КОРОЛЬ ДЕМОНІВ СПРОБУВАВ ЗАХОПИТИ СВІТ,
+	І ЙОМУ ПРОТИСТОЯВ ГЕРОЙ",690, 950, 258, 253]
 	,["І В ЦІЙ ЖОРСТОКІЙ БИТВІ", 24, 1125, 150, 180]
 	,["ПЕРЕМІГ ГЕРОЙ", 795, 1466, 200, 202]
-];
+];*/
 
 
 function functionName() {
@@ -38,7 +40,7 @@ label.setAttribute("id","label"+i);
 newdiv.appendChild(label);
 div.appendChild(newdiv);
 }
-
+testLabel();
 }
 function isEllipsisActive(el) 
 {
