@@ -151,6 +151,58 @@ mysql_free_result($result);
 // Закрываем соединение
 mysql_close($link);*/
 $conn->close();
+
+
+
+// Соединяемся, выбираем базу данных
+/*$link = mysql_connect('localhost', 'root', '')
+    or die('Не удалось соединиться: ' . mysql_error());
+echo 'Соединение успешно установлено';*/
+
+$conn = new mysqli('mysql.hostinger.com.ua', 'u450252009_admin', 'QdMWc5XJGfPg', 'u450252009_autom');
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+//mysql_select_db('u450252009_autom') or die('Не удалось выбрать базу данных');
+
+// Выполняем SQL-запрос
+/*$query = 'SELECT db_manga.id, db_manga.name, db_chapter.N_chapter,db_page.N_page, db_page.path
+FROM db_manga LEFT JOIN manga.db_chapter ON db_manga.id=db_chapter.id_manga 
+RIGHT JOIN manga.db_PAGE ON db_chapter.id=db_page.id_chapter
+where db_manga.id='.$id.' order by db_page.N_page';
+//$result = mysql_query($query) or die('Запрос не удался: ' . mysql_error());
+*/
+$query = 'SELECT db_manga.id, db_manga.name, db_chapter.N_chapter,db_page.N_page, db_page.path FROM db_manga 
+left join db_chapter on db_manga.id=db_chapter.id_manga
+    right join db_page on db_chapter.id=db_page.id_chapter
+     WHERE db_manga.id='.$id.' order by db_page.N_page';
+
+$result = $conn->query($query) or die('Запрос не удался: ' . mysql_error());
+
+$array_textbox=array();
+
+//$data_path=array();
+
+if ($result->num_rows > 0) {
+    // output data of each row
+	 
+	 while($row = $result->fetch_assoc()) {
+     // echo "id: " . $row["N_page"]. " - Name: " . $row["name"]. " " . $row["path"]. "<br>";
+		
+	array_push($array_textbox, 	array($row["text"],$row["x"],$row["y"],$row["width"],$row["height"]));
+	
+	}
+	//echo '</select>';
+} else {
+    echo "0 results";
+}
+
+
+$conn->close();
+
+
 ?>
 				
 			</nav>
