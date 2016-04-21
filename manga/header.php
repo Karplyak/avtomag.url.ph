@@ -177,6 +177,7 @@ left join db_chapter on db_manga.id=db_chapter.id_manga
      WHERE db_manga.id='.$id.' order by db_page.N_page';*/
 
 	 $query = 'SELECT id, text, x, y, width, height FROM db_textbox 
+	 left join db_page on db_textbox.id_page=db_page.id
      WHERE id_page='.$page;
 
 	 $result = $conn->query($query) or die('Запрос не удался: ' . mysql_error());
@@ -192,7 +193,7 @@ if ($result->num_rows > 0) {
      // echo "id: " . $row["N_page"]. " - Name: " . $row["name"]. " " . $row["path"]. "<br>";
 		
 	array_push($array_textbox, 	array($row["text"],$row["x"],$row["y"],$row["width"],$row["height"]));
-	
+echo "id: " . $row["id"]. " - Name: " . $row["text"];
 	}
 	//echo '</select>';
 } else {
