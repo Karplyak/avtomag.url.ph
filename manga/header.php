@@ -177,7 +177,7 @@ left join db_chapter on db_manga.id=db_chapter.id_manga
      WHERE db_manga.id='.$id.' order by db_page.N_page';*/
 
 	 $query = 'SELECT id, text, x, y, width, height FROM db_textbox 
-	WHERE id_page='.$page;//  join db_page on db_textbox.id_page=db_page.id
+	WHERE id_page='.$_GET["page"];//  join db_page on db_textbox.id_page=db_page.id
      
 
 	 $result = $conn->query($query) or die('Запрос не удался: ' . mysql_error());
