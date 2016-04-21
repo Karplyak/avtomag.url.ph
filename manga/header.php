@@ -193,7 +193,7 @@ if ($result->num_rows > 0) {
      // echo "id: " . $row["N_page"]. " - Name: " . $row["name"]. " " . $row["path"]. "<br>";
 		
 	array_push($array_textbox, 	array($row["text"],$row["x"],$row["y"],$row["width"],$row["height"]));
-echo "id: " . $row["id"]. " - Name: " . $row["text"];
+	echo "id: " .$row["id"]. " - Name: " .$row["text"];
 	}
 	//echo '</select>';
 } else {
