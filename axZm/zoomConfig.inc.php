@@ -83,10 +83,10 @@ if(!session_id()){session_start();} unset ($zoom, $zoomTmp); $zoom = array(); $z
 /////////////////////////////////////////////////////////////////////////
 
 // Type of the licence: Evaluation, Developer, Basic, Standard, Business, Corporate, Enterprise or Unlimited, use Basic for demo
-$zoom['config']['licenceType'] = 'Basic'; // string
+$zoom['config']['licenceType'] = 'Evaluation'; // string
 
 // Type in the Licence Key or 'demo'
-$zoom['config']['licenceKey'] = 'demo'; // string
+$zoom['config']['licenceKey'] = 'CAgfBDEEdjhxZAc2Ix0tKUNpHjlaAxo3Fl57ezNBd1EaCw=='; // string
 
 
 // More than one license for several domains
