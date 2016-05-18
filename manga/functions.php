@@ -558,5 +558,43 @@ mysql_close($link);
  return $data_path;
 }
 
+function mangaName(){
+$servername = "mysql.hostinger.com.ua";//'mysql.hostinger.com.ua', 'u450252009_admin', 'QdMWc5XJGfPg' u450252009_autom
+$username = "u450252009_admin";
+$password = "QdMWc5XJGfPg";
+$dbname = "u450252009_autom";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT id, name FROM db_manga";
+
+/*$query = 'SELECT id, text, x, y, width, height FROM db_textbox 
+left join db_chapter on db_manga.id=db_chapter.id_manga
+    right join db_page on db_chapter.id=db_page.id_chapter
+     WHERE db_manga.id='.$id.' order by db_page.N_page';*/
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+	    echo '<select name="users" onchange="showUser(this.value)">';
+		echo '<option selected disabled value="">Виберіть мангу</option>';
+		$id_inst="";
+	 while($row = $result->fetch_assoc()) {
+     //   echo "id: " . $row["id"]. " - Name: " . $row["sname"]. " " . $row["fname"]. "<br>";
+	 echo '<option value='. $row["id"].'>'. $row["name"].'</option> ';
+   	}
+	echo '</select>';
+} else {
+	 echo '<select name="users" onchange="showUser(this.value)">';
+	 echo '<option selected disabled value="">Виберіть кафедру</option>';
+    echo '</select>';
+}
+$conn->close();
+}
 ?>
