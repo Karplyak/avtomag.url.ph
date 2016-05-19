@@ -53,10 +53,10 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['id'] . "</td>";
     echo "<td>" . $row['id_chapter'] . "</td>";
     echo "<td>" . $row['N_page'] . "</td>";
-    echo "<td>" . $row['path'] . "</td>";
+    echo "<td>" . substr($row['path'],1,strlen($row['path'])-1) . "</td>";
     echo "<td>" . $row['date'] . "</td>";
     echo "</tr>";
-	$path=$row['path'];
+	$path=substr($row['path'],1,strlen($row['path'])-1);
 }
 echo "</table>";
 mysqli_close($con);
@@ -316,7 +316,7 @@ $conn->close();*/
 	ajaxZoom.path = "../axZm/"; 
 	
 	// zoomData - defines which image should be loaded
-	ajaxZoom.parameter = "<?php echo $path; ?>";
+	ajaxZoom.parameter = "<?php echo 'zoomData=/manga' .$path; ?>";
 	
 	// example - defines which "options set" is taken
 	// options in /axZm/zoomConfig.inc.php are overriden in /axZm/zoomConfigCustom.inc.php  
