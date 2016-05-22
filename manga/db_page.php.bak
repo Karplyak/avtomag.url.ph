@@ -1,159 +1,108 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/">
+<!DOCTYPE html>
+<html>
 <head>
-<title>AJAX-ZOOM image tagging with hotspots</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="imagetoolbar" content="no">
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-<meta property="og:type" content="article"/>
-<meta property="og:title" content="AJAX-ZOOM image tagging with hotspots"/>
-<meta property="og:description" content="Tag images with hotspots, title and descriptions"/>
-<meta name="description" content="Tag images with hotspots, title and descriptions." />
-<meta property="og:image" content="http://www.ajax-zoom.com/pic/layout/image-zoom_12.jpg"/>
+table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
 
-
-
-	<meta name="viewport" content="width=device-width,  minimum-scale=1, maximum-scale=1, user-scalable=no">
-
-<!-- Include jQuery core into head section if not already present -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-<!-- JSON -->
-<script type="text/javascript" src="../axZm/plugins/JSON/jquery.json-2.3.min.js"></script>
-
-<!--  AJAX-ZOOM javascript -->
-<script type="text/javascript" src="../axZm/jquery.axZm.js"></script>
-<link type="text/css" href="../axZm/axZm.css" rel="stylesheet" />
-
-<style type="text/css" media="screen"> 
-	html {font-family: Tahoma, Arial; font-size: 10pt;}
-	a {color: blue; outline: 0; outline-style: none; text-decoration: none;} a:visited {color: blue;} a:hover {color: green;}
-	h2 {padding:0px; margin: 35px 0px 15px 0px; font-size: 22px;}
-	h3 {font-family: Arial; color: #1A4A7A; font-size: 18px; padding: 20px 0px 3px 0px; margin: 0;}
-	p {text-align: justify; text-justify: newspaper;}
-	
-	/* cursor in tagging mode */
-	.azTagging {cursor: crosshair !important;}
-	
-	/* title textfield */
-	.azTextField {width: 100%; margin-bottom: 5px; box-sizing: border-box !important; padding: 5px; font-family: arial; font-size: 12px; border: 1px solid #999999; border-radius: 3px;}
-	
-	/* description textarea */
-	.azTextArea {width: 100%; height: 100px; box-sizing: border-box !important; padding: 5px; background-color: #FFF; font-family: arial; font-size: 12px; border: 1px solid #999999; border-radius: 3px;}
-	
-	/* save, delete button */
-	.azButton {margin-top: 5px;}
-	
-	/* message about click to place a hotspot */
-	.azTaggingMsg {position: absolute; background-color: #B50904; width: 290px; margin-left: -140px; top: -1px; left: 50%; border: #000 1px solid; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 11px; color: #FFF; padding: 1px 5px 1px 5px; z-index: 1; pointer-events: none;}
-	
-	/* parent container for navigation (mNavi) */
-	.azCustomNavi{background-color: #AAA; box-sizing: border-box; height: 58px; padding: 4px 0px 4px 0px; border-left: #000 1px solid; border-bottom: #000 1px solid; border-right: #000 1px solid;}
-	
-	/* html console */
-	.azTaggingResults{background-color: #101010; color: #3cc628; padding: 5px; margin: 0; height: 530px; overflow: hidden; overflow-y: auto;}
-	.azPre{tab-size: 2; -moz-tab-size: 2; margin: 0; font-size: 11px; font-family: monospace;}
-	
-	/* Overwrite css from /axZm/jquery.axZm.js */
-	.axZmToolTipInner {background-color: #c5d8e1; border-color: #5583b4; border-width: 3px;}
-	
-	.axZmToolTipTitle {color: #FFF; /* #1a4a7a*/ font-size: 16px; line-height: 18px; min-height: 24px; text-shadow: 0px 0px 2px rgba(150, 150, 150, 0.75);}
-	
-	.axZm_zoomCustomNaviParentID {margin: 0 auto;}
-	
-	#axZm_zoomLogHolder {width: 55px;}
+th {text-align: left;}
 </style>
-<script>
-function showUser(str) {
-    if (str == "") {
-        document.getElementById("chapter").innerHTML = "";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("chapter").innerHTML = xmlhttp.responseText;
-            }
-        };
-        xmlhttp.open("GET","/manga/db_manga.php?q="+str,true);
-        xmlhttp.send();
-    }
-}
-
-function showPage(str) {
-  if (str=="") {
-    document.getElementById("txtHint").innerHTML="";
-    return;
-  } 
-  if (window.XMLHttpRequest) {
-    // code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp=new XMLHttpRequest();
-  } else {  // code for IE6, IE5
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-    }
-  }
-  xmlhttp.open("GET","/manga/db_chapter.php?q="+str,true);
-  xmlhttp.send();
-}
-function showSlider(str) {
-  /*if (str=="") {
-    document.getElementById("slider").innerHTML="";
-    return;
-  } */
-  if (window.XMLHttpRequest) {
-    // code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp=new XMLHttpRequest();
-  } else {  // code for IE6, IE5
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-     //document.getElementById("slider").innerHTML=
-	  myFunction(xmlhttp.responseText);
-    }
-  }
-  xmlhttp.open("GET","/manga/db_page.php?q="+str,true);
-  xmlhttp.send();
-}
-</script>
-<?php include 'functions.php'; ?>
 </head>
 <body>
 
-<form action="#" id="carform">
 
-  <?php mangaName(); ?>
-<!--
-<select name="users" onchange="showUser(this.value)">
-  <option value="">Select a person:</option>
-  <option value="1">Peter Griffin</option>
-  <option value="2">Lois Griffin</option>
-  <option value="3">Joseph Swanson</option>
-  <option value="4">Glenn Quagmire</option>
-  </select>
-  -->
-  <?php
-// if (isset($_GET["users"])) {
-	//chapterName();
-//} 
+<?php
+$id = intval($_GET['q']);
+
+$servername = "mysql.hostinger.com.ua";//'mysql.hostinger.com.ua', 'u450252009_admin', 'QdMWc5XJGfPg' u450252009_autom
+$username = "u450252009_admin";
+$password = "QdMWc5XJGfPg";
+$dbname = "u450252009_autom";
+
+$con = mysqli_connect('mysql.hostinger.com.ua', 'u450252009_admin', 'QdMWc5XJGfPg', 'u450252009_autom');
+if (!$con) {
+    die('Could not connect: ' . mysqli_error($con));
+}
+$query = 'id, name, sec_name,autor, trans FROM db_manga 
+left join db_chapter on db_manga.id=db_chapter.id_manga
+    right join db_page on db_chapter.id=db_page.id_chapter
+     WHERE db_manga.id='.$id.' order by db_page.N_page';
+	 
+mysqli_select_db($con,"ajax_demo");
+$sql="SELECT * FROM db_page where id=".$id;
+$result = mysqli_query($con,$sql);
+
+echo "<table>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Age</th>
+<th>Hometown</th>
+<th>Job</th>
+</tr>";
+$path='';
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['id'] . "</td>";
+    echo "<td>" . $row['id_chapter'] . "</td>";
+    echo "<td>" . $row['N_page'] . "</td>";
+    echo "<td>" . substr($row['path'],1,strlen($row['path'])-1) . "</td>";
+    echo "<td>" . $row['date'] . "</td>";
+    echo "</tr>";
+	$path=substr($row['path'],1,strlen($row['path'])-1);
+}
+echo "</table>";
+mysqli_close($con);
+/*
+$servername = "127.0.0.1:3306";
+$username = "root";
+$password = "";
+$dbname = "manga";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT id, name FROM db_page where id=".$id;
+
+/*	id, id_manga, N_chapter, id_lang
+
+
+$query = 'SELECT id, text, x, y, width, height FROM db_textbox 
+left join db_chapter on db_manga.id=db_chapter.id_manga
+    right join db_page on db_chapter.id=db_page.id_chapter
+     WHERE db_manga.id='.$id.' order by db_page.N_page';
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+	    echo '<select name="users2" onchange="showSlider(this.value)">';
+		echo '<option selected disabled value="">Виберіть розділ</option>';
+		$id_inst="";
+	 while($row = $result->fetch_assoc()) {
+     //   echo "id: " . $row["id"]. " - Name: " . $row["sname"]. " " . $row["fname"]. "<br>";
+	 echo '<option value='. $row["id"].'>'. $row["name"].'</option> ';
+   	}
+	echo '</select>';
+} else {
+	 echo '<select name="users2" onchange="showSlider(this.value)">';
+	 echo '<option selected disabled value="">Виберіть розділ</option>';
+    echo '</select>';
+}
+$conn->close();*/
+
 ?>
-  
-</form>
-<br>
-<div id="chapter"><b>Person info will be listed here...</b></div>
-<br>
-<div id="txtHint"><b>Person info will be listed here...</b></div>
-<div id="slider" style="width: 1250px; margin: 0px auto; overflow-x: hidden;">
 
 	<h2>AJAX-ZOOM (for developers)<br />tagging images with hotspots, adding title and description;<br />$.fn.axZm.createNewHotspot() API tutorial;</h2>
 	
@@ -357,7 +306,6 @@ function showSlider(str) {
 	
 
 <script type="text/javascript">
-function myFunction(arg1){
 	// some var to hold everyting else
 	window.ajaxZoom = {};
 
@@ -368,12 +316,7 @@ function myFunction(arg1){
 	ajaxZoom.path = "../axZm/"; 
 	
 	// zoomData - defines which image should be loaded
-	//var text = e.options[e.selectedIndex].text;
-	/*if (arg1=="" or arg1==null)
-	{
-		ajaxZoom.parameter = "zoomData=/manga/manga/carton_hero/ch0/ch0-01.jpg";
-	}else*/
-	ajaxZoom.parameter = "zoomData=/manga"+arg1;
+	ajaxZoom.parameter = "<?php echo 'zoomData=/manga' .$path; ?>";
 	
 	// example - defines which "options set" is taken
 	// options in /axZm/zoomConfig.inc.php are overriden in /axZm/zoomConfigCustom.inc.php  
@@ -780,10 +723,10 @@ function myFunction(arg1){
 		false // postMode - use POST instead of GET
 	);
 	*/
-}
+
 </script>
 
-</div>
+
 
 </body>
 </html>

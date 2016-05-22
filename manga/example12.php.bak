@@ -106,10 +106,10 @@ function showPage(str) {
   xmlhttp.send();
 }
 function showSlider(str) {
-  /*if (str=="") {
+  if (str=="") {
     document.getElementById("slider").innerHTML="";
     return;
-  } */
+  } 
   if (window.XMLHttpRequest) {
     // code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp=new XMLHttpRequest();
@@ -118,8 +118,7 @@ function showSlider(str) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-     //document.getElementById("slider").innerHTML=
-	  myFunction(xmlhttp.responseText);
+      document.getElementById("slider").innerHTML=xmlhttp.responseText;
     }
   }
   xmlhttp.open("GET","/manga/db_page.php?q="+str,true);
@@ -357,7 +356,6 @@ function showSlider(str) {
 	
 
 <script type="text/javascript">
-function myFunction(arg1){
 	// some var to hold everyting else
 	window.ajaxZoom = {};
 
@@ -368,12 +366,7 @@ function myFunction(arg1){
 	ajaxZoom.path = "../axZm/"; 
 	
 	// zoomData - defines which image should be loaded
-	//var text = e.options[e.selectedIndex].text;
-	/*if (arg1=="" or arg1==null)
-	{
-		ajaxZoom.parameter = "zoomData=/manga/manga/carton_hero/ch0/ch0-01.jpg";
-	}else*/
-	ajaxZoom.parameter = "zoomData=/manga"+arg1;
+	ajaxZoom.parameter = "zoomData=/manga/pic/carton_hero/ch0/ch0-01.jpg";
 	
 	// example - defines which "options set" is taken
 	// options in /axZm/zoomConfig.inc.php are overriden in /axZm/zoomConfigCustom.inc.php  
@@ -780,10 +773,9 @@ function myFunction(arg1){
 		false // postMode - use POST instead of GET
 	);
 	*/
-}
+
 </script>
 
-</div>
 
 </body>
 </html>
