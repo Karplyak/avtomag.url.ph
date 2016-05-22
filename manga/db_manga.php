@@ -66,7 +66,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, name FROM db_chapter where id_manga=".$q;
+$sql = "SELECT id, N_chapter FROM db_chapter where id_manga=".$q;
 
 /*	id, id_manga, N_chapter, id_lang
 
@@ -85,7 +85,7 @@ if ($result->num_rows > 0) {
 		$id_inst="";
 	 while($row = $result->fetch_assoc()) {
      //   echo "id: " . $row["id"]. " - Name: " . $row["sname"]. " " . $row["fname"]. "<br>";
-	 echo '<option value='. $row["id"].'>'. $row["name"].'</option> ';
+	 echo '<option value='. $row["id"].'> Chapter '. $row["N_chapter"].'</option> ';
    	}
 	echo '</select>';
 } else {
