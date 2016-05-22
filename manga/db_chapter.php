@@ -81,7 +81,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
 	    echo '<select name="users2" onchange="showSlider(this.value)">';
-		echo '<option selected disabled value="">Виберіть Срозділ</option>';
+		echo '<option selected disabled value="">Виберіть СТОРІНКУ</option>';
 		$id_inst="";
 	 while($row = $result->fetch_assoc()) {
      //   echo "id: " . $row["id"]. " - Name: " . $row["sname"]. " " . $row["fname"]. "<br>";
