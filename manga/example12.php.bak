@@ -25,6 +25,11 @@
 <script type="text/javascript" src="../axZm/jquery.axZm.js"></script>
 <link type="text/css" href="../axZm/axZm.css" rel="stylesheet" />
 
+<script type="text/javascript" src="../axZm/extensions/jquery.axZm.imageCropEditor.js"></script>
+<link rel="stylesheet" type="text/css" href="../axZm/extensions/jquery.axZm.imageCropEditor.css">
+
+
+
 <style type="text/css" media="screen"> 
 	html {font-family: Tahoma, Arial; font-size: 10pt;}
 	a {color: blue; outline: 0; outline-style: none; text-decoration: none;} a:visited {color: blue;} a:hover {color: green;}
@@ -106,10 +111,10 @@ function showPage(str) {
   xmlhttp.send();
 }
 function showSlider(str) {
-  if (str=="") {
+  /*if (str=="") {
     document.getElementById("slider").innerHTML="";
     return;
-  } 
+  } */
   if (window.XMLHttpRequest) {
     // code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp=new XMLHttpRequest();
@@ -118,7 +123,8 @@ function showSlider(str) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("slider").innerHTML=xmlhttp.responseText;
+     //document.getElementById("slider").innerHTML=
+	  myFunction(xmlhttp.responseText);
     }
   }
   xmlhttp.open("GET","/manga/db_page.php?q="+str,true);
@@ -356,6 +362,7 @@ function showSlider(str) {
 	
 
 <script type="text/javascript">
+function myFunction(arg1){
 	// some var to hold everyting else
 	window.ajaxZoom = {};
 
@@ -366,7 +373,12 @@ function showSlider(str) {
 	ajaxZoom.path = "../axZm/"; 
 	
 	// zoomData - defines which image should be loaded
-	ajaxZoom.parameter = "zoomData=/manga/pic/carton_hero/ch0/ch0-01.jpg";
+	//var text = e.options[e.selectedIndex].text;
+	/*if (arg1=="" or arg1==null)
+	{
+		ajaxZoom.parameter = "zoomData=/manga/manga/carton_hero/ch0/ch0-01.jpg";
+	}else*/
+	ajaxZoom.parameter = "zoomData=/manga"+arg1;
 	
 	// example - defines which "options set" is taken
 	// options in /axZm/zoomConfig.inc.php are overriden in /axZm/zoomConfigCustom.inc.php  
@@ -692,7 +704,8 @@ function showSlider(str) {
 				mPan: 5, // pan mode button
 				mCrop: 20, // crop mode button
 				mHotspots: 5, // show / hide hotspots button
-				mCustomBtn1: 0 // our "whatever" button
+				mCustomBtn1: 5, // our "whatever" button
+				mCustomBtn2: 0 // our "whatever" button
 			};
 			
 			// there can be as many "whatever" (custom) buttons as you want
@@ -700,9 +713,13 @@ function showSlider(str) {
 			
 			// now we define how this mCustomBtn1 should look like
 			$.axZm.icons.mCustomBtn1 = {file: $.axZm.buttonSet + "/button_iPad_tag", ext: "png", w: 50, h: 50};
+			$.axZm.icons.mCustomBtn2 = {file: $.axZm.buttonSet + "/zoombutton_crop", ext: "png", w: 50, h: 50};
+			
 			
 			// and the title of mCustomBtn1
 			$.axZm.mapButTitle.customBtn1 = ajaxZoom.taggingTxt.disable; // description of the button
+			$.axZm.mapButTitle.customBtn2 = "Text"; // description of the button
+			
 			
 			// attach a JS function to the mCustomBtn1
 			$.axZm.mNavi.mCustomBtn1 = function(){
@@ -723,6 +740,11 @@ function showSlider(str) {
 					ajaxZoom.setTaggingMsg();
 				}
 			};
+			// function when clicked on this custom button (mCustomBtn1)
+				jQuery.axZm.mNavi.mCustomBtn2 = function(){
+					jQuery.aZcropEd.jCropMethod('toggle');
+					return false;
+				};
 
 		},
 		
@@ -773,9 +795,10 @@ function showSlider(str) {
 		false // postMode - use POST instead of GET
 	);
 	*/
-
+}
 </script>
 
+</div>
 
 </body>
 </html>

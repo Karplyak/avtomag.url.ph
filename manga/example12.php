@@ -24,10 +24,27 @@
 <!--  AJAX-ZOOM javascript -->
 <script type="text/javascript" src="../axZm/jquery.axZm.js"></script>
 <link type="text/css" href="../axZm/axZm.css" rel="stylesheet" />
+<script type="text/javascript" src="../axZm/plugins/jCrop/js/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="../axZm/extensions/axZmThumbSlider/lib/jquery.mousewheel.min.js"></script>
+<link type="text/css" href="../axZm/plugins/jCrop/css/jquery.Jcrop.css" rel="stylesheet">
+<link href="../axZm/plugins/demo/jquery.fancybox/jquery.fancybox-1.3.4.zIndex.css" type="text/css" media="screen" rel="stylesheet">
+<script type="text/javascript" src="../axZm/extensions/axZmThumbSlider/lib/jquery.axZm.thumbSlider.js"></script>
 
 <script type="text/javascript" src="../axZm/extensions/jquery.axZm.imageCropEditor.js"></script>
 <link rel="stylesheet" type="text/css" href="../axZm/extensions/jquery.axZm.imageCropEditor.css">
 
+<script type="text/javascript" src="../axZm/extensions/jquery.axZm.expButton.js"></script>
+<script type="text/javascript" src="../axZm/plugins/js-beautify/beautify-all.min.js"></script>
+<script type="text/javascript" src="../axZm/plugins/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../axZm/plugins/jquery.ui/js/jquery-ui-1.8.24.custom.min.js"></script>
+<script type="text/javascript" src="../axZm/plugins/CLEditor/jquery.cleditor.min.js"></script>
+<script type="text/javascript" src="../axZm/plugins/CLEditor/jquery.cleditor.table.min.js"></script>
+<script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/src/shCore.js"></script>
+<script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="/axZm/plugins/jquery.requestAnimationFrame.min.js"></script>
 
 
 <style type="text/css" media="screen"> 
@@ -705,7 +722,7 @@ function myFunction(arg1){
 				mCrop: 20, // crop mode button
 				mHotspots: 5, // show / hide hotspots button
 				mCustomBtn1: 5, // our "whatever" button
-				mCustomBtn2: 0 // our "whatever" button
+				mCustomBtn2: 5 // our "whatever" button
 			};
 			
 			// there can be as many "whatever" (custom) buttons as you want
@@ -719,7 +736,6 @@ function myFunction(arg1){
 			// and the title of mCustomBtn1
 			$.axZm.mapButTitle.customBtn1 = ajaxZoom.taggingTxt.disable; // description of the button
 			$.axZm.mapButTitle.customBtn2 = "Text"; // description of the button
-			
 			
 			// attach a JS function to the mCustomBtn1
 			$.axZm.mNavi.mCustomBtn1 = function(){
