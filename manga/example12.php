@@ -25,6 +25,11 @@
 <script type="text/javascript" src="../axZm/jquery.axZm.js"></script>
 <link type="text/css" href="../axZm/axZm.css" rel="stylesheet" />
 
+<script type="text/javascript" src="../axZm/extensions/jquery.axZm.imageCropEditor.js"></script>
+<link rel="stylesheet" type="text/css" href="../axZm/extensions/jquery.axZm.imageCropEditor.css">
+
+
+
 <style type="text/css" media="screen"> 
 	html {font-family: Tahoma, Arial; font-size: 10pt;}
 	a {color: blue; outline: 0; outline-style: none; text-decoration: none;} a:visited {color: blue;} a:hover {color: green;}
