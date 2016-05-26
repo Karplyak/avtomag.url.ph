@@ -704,7 +704,8 @@ function myFunction(arg1){
 				mPan: 5, // pan mode button
 				mCrop: 20, // crop mode button
 				mHotspots: 5, // show / hide hotspots button
-				mCustomBtn1: 0 // our "whatever" button
+				mCustomBtn1: 5, // our "whatever" button
+				mCustomBtn2: 0 // our "whatever" button
 			};
 			
 			// there can be as many "whatever" (custom) buttons as you want
@@ -712,9 +713,13 @@ function myFunction(arg1){
 			
 			// now we define how this mCustomBtn1 should look like
 			$.axZm.icons.mCustomBtn1 = {file: $.axZm.buttonSet + "/button_iPad_tag", ext: "png", w: 50, h: 50};
+			$.axZm.icons.mCustomBtn2 = {file: $.axZm.buttonSet + "/zoombutton_crop", ext: "png", w: 50, h: 50};
+			
 			
 			// and the title of mCustomBtn1
 			$.axZm.mapButTitle.customBtn1 = ajaxZoom.taggingTxt.disable; // description of the button
+			$.axZm.mapButTitle.customBtn2 = "Text"; // description of the button
+			
 			
 			// attach a JS function to the mCustomBtn1
 			$.axZm.mNavi.mCustomBtn1 = function(){
@@ -735,6 +740,11 @@ function myFunction(arg1){
 					ajaxZoom.setTaggingMsg();
 				}
 			};
+			// function when clicked on this custom button (mCustomBtn1)
+				jQuery.axZm.mNavi.mCustomBtn2 = function(){
+					jQuery.aZcropEd.jCropMethod('toggle');
+					return false;
+				};
 
 		},
 		
