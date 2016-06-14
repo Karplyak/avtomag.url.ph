@@ -30,13 +30,14 @@
 <link href="../axZm/plugins/demo/jquery.fancybox/jquery.fancybox-1.3.4.zIndex.css" type="text/css" media="screen" rel="stylesheet">
 <script type="text/javascript" src="../axZm/extensions/axZmThumbSlider/lib/jquery.axZm.thumbSlider.js"></script>
 
-<script type="text/javascript" src="../axZm/extensions/jquery.axZm.imageCropEditor.js"></script>
+<script type="text/javascript" src="../axZm/extensions/jquery.axZm.imageCropEditor2.js"></script>
 <link rel="stylesheet" type="text/css" href="../axZm/extensions/jquery.axZm.imageCropEditor.css">
-
+<script type="text/javascript" src="../axZm/plugins/jquery.ui/js/jquery-ui-1.8.24.custom.min.js"></script>
+<!--
 <script type="text/javascript" src="../axZm/extensions/jquery.axZm.expButton.js"></script>
 <script type="text/javascript" src="../axZm/plugins/js-beautify/beautify-all.min.js"></script>
 <script type="text/javascript" src="../axZm/plugins/jquery.scrollTo.min.js"></script>
-<script type="text/javascript" src="../axZm/plugins/jquery.ui/js/jquery-ui-1.8.24.custom.min.js"></script>
+
 <script type="text/javascript" src="../axZm/plugins/CLEditor/jquery.cleditor.min.js"></script>
 <script type="text/javascript" src="../axZm/plugins/CLEditor/jquery.cleditor.table.min.js"></script>
 <script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/src/shCore.js"></script>
@@ -45,7 +46,7 @@
 <script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/scripts/shBrushCss.js"></script>
 <script type="text/javascript" src="../axZm/plugins/demo/syntaxhighlighter/scripts/shBrushXml.js"></script>
 <script type="text/javascript" src="/axZm/plugins/jquery.requestAnimationFrame.min.js"></script>
-
+ -->
 
 <style type="text/css" media="screen"> 
 	html {font-family: Tahoma, Arial; font-size: 10pt;}
@@ -679,7 +680,8 @@ function myFunction(arg1){
 					title: obj.title,
 					descr: obj.descr,
 					timestamp: obj.lastChanged,
-					position: $.fn.axZm.convertHotspotPositionToPx($.axZm.hotspots[name]["position"][$.axZm.zoomID])
+					position: $.fn.axZm.convertHotspotPositionToPx($.axZm.hotspots[name]["position"][$.axZm.zoomID]),
+					length: $.fn.axZm.convertHotspotPositionToPx($.axZm.hotspots[name]["position"][$.axZm.zoomID])
 				};
 			}
 		});
@@ -722,7 +724,7 @@ function myFunction(arg1){
 				mCrop: 20, // crop mode button
 				mHotspots: 5, // show / hide hotspots button
 				mCustomBtn1: 5, // our "whatever" button
-				mCustomBtn2: 5 // our "whatever" button
+				mCustomBtn3: 5 // our "whatever" button
 			};
 			
 			// there can be as many "whatever" (custom) buttons as you want
@@ -730,7 +732,7 @@ function myFunction(arg1){
 			
 			// now we define how this mCustomBtn1 should look like
 			$.axZm.icons.mCustomBtn1 = {file: $.axZm.buttonSet + "/button_iPad_tag", ext: "png", w: 50, h: 50};
-			$.axZm.icons.mCustomBtn2 = {file: $.axZm.buttonSet + "/zoombutton_crop", ext: "png", w: 50, h: 50};
+			$.axZm.icons.mCustomBtn3 = {file: $.axZm.buttonSet + "/zoombutton_crop", ext: "png", w: 50, h: 50};
 			
 			
 			// and the title of mCustomBtn1
@@ -757,7 +759,7 @@ function myFunction(arg1){
 				}
 			};
 			// function when clicked on this custom button (mCustomBtn1)
-				jQuery.axZm.mNavi.mCustomBtn2 = function(){
+				jQuery.axZm.mNavi.mCustomBtn3 = function(){
 					jQuery.aZcropEd.jCropMethod('toggle');
 					return false;
 				};
