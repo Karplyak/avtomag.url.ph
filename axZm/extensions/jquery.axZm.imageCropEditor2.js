@@ -807,7 +807,7 @@ var effectObj = [
 						zIndex: 666
 					})
 					.click(function(){
-						jCropFire();
+						jCropFire2();
 						$('#customBtn_mCustomBtn3').trigger('click').trigger('mouseleave');
 						
 					console.log("mCustomBtn3 click \n");
@@ -1005,7 +1005,79 @@ console.log(">>>><<<<<");
 			
 		});
 	},
-	
+	jCropFire2 = function(){
+		// Prevent too fast cropping
+		if (jcrop_az.busyCropping){
+			$.fn.axZm.zoomAlert('Please wait until the last job is finished', 'Please wait', null, true);
+			return false;
+		}
+		console.log(">>>>jCropFire<<<<<");
+		// Set cropping status
+		jcrop_az.busyCropping = true;
+				
+		// No coordinates defined (Jcrop is closed)
+		if (!jcrop_api){
+			
+				return false;
+					
+		}else{
+			// Get "Screen" values returned from Jcrop
+			var a = jcrop_api.tellScaled();
+			
+			// Get "Real" values from AZ to crop (in regard to original image)
+			var gCV =  $.fn.axZm.getCropValues([a.x, a.y, a.x2, a.y2]);
+			console.log("else &x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
+		}
+		
+		
+			// Reset cropping status
+			jcrop_az.busyCropping = false;
+			
+			// Get all headers
+			//console.log(jqXHR.getAllResponseHeaders())
+			console.log(">>>><<<<<");
+			// Read header content type
+			
+			// If the return is an image
+		//	if (textStatus == 'success' && contentType.toLowerCase().indexOf('image') != -1){
+				// Preload image
+				//$(tempImg).load(function(){
+								
+					// Counter
+					//jcrop_az.countThumbs++;
+					
+					// Define information to store in jQuery data
+					var dataObj = {
+						thumbNumber: jcrop_az.countThumbs,
+						crop: gCV[1],
+						//url: imgCropperPath,
+						//qString: imgCropperPath.replace(axZmPath+'zoomLoad.php?', ''),
+						zoomID: $.axZm.zoomID,
+						imgName: $.axZm.zoomGA[$.axZm.zoomID]['img'],
+						//contentLocation: contentLocation,
+						azPar: $.fn.axZm.getParameter()
+					};
+					console.log(">>>><<<<<" + dataObj);
+					// Save everything in separate object
+					//jcrop_az.allCrops[jcrop_az.countThumbs] = dataObj;
+									
+			//}
+			
+			// Not an image returned
+		/*	else if (textStatus == 'success'){
+				// Alert
+				//imgCropperPath
+				$.fn.axZm.zoomAlert('The return from:<br>'+imgCropperPath + '<br>was not an image!<br><br>Return text: '+responseText, 'Error creating a crop', null, true, true, null);
+			}
+			
+			// Something else
+			else if (textStatus != 'success'){
+				$.fn.axZm.zoomAlert(responseText, 'Error occurred', null, true, true, null);
+			}*/
+			
+		//});
+		return dataObj;
+	},
 	deleteCropAction = function(num){
 		// Remove thumb from the slider
 		$('#cropSlider').axZmThumbSlider('removeThumb', '[data-cropNum='+num+']');
