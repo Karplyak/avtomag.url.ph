@@ -681,7 +681,7 @@ function myFunction(arg1){
 					descr: obj.descr,
 					timestamp: obj.lastChanged,
 					position: $.fn.axZm.convertHotspotPositionToPx($.axZm.hotspots[name]["position"][$.axZm.zoomID]),
-					length: $.fn.axZm.convertHotspotPositionToPx($.axZm.hotspots[name]["position"][$.axZm.zoomID])
+					//length: $.fn.axZm.convertHotspotPositionToPx($.axZm.hotspots[name]["position"][$.axZm.zoomID])
 				};
 			}
 		});
@@ -692,6 +692,96 @@ function myFunction(arg1){
 		// todo: for example save it to session and restore when loaded	
 	};
 
+	readJsonData=function(info){
+		// do not do anything if ajaxZoom.taggingMode (a switch var) is false
+		if (!ajaxZoom.taggingMode){return;}
+		
+		// position of the click related to its original size
+		var xClick = info.crop[0];
+		var yClick = info.crop[1];
+		var width = Math.abs(info.crop[0]-info.crop[2]);
+		var height = Math.abs(info.crop[1]-info.crop[3]);
+		
+		/*var dataObj = {
+						thumbNumber: jcrop_az.countThumbs,
+						crop: gCV[1],
+						//url: imgCropperPath,
+						//qString: imgCropperPath.replace(axZmPath+'zoomLoad.php?', ''),
+						zoomID: $.axZm.zoomID,
+						imgName: $.axZm.zoomGA[$.axZm.zoomID]['img'],
+						//contentLocation: contentLocation,
+						azPar: $.fn.axZm.getParameter()
+					};
+		*/
+		
+		// file (image) name
+		var currentImageName = $.axZm.zoomGA[$.axZm.zoomID].img;
+		
+		// position of the hotspot in this file
+		// there could be same hotspot on an image in the gallery, 
+		// this is why we need image name here and it is defined this way
+		var posObj = {}; posObj[currentImageName] = {left: xClick, top: yClick, width: width, height: height};
+		
+		// show hotspots in case they are disabled
+		$.fn.axZm.showHotspotLayer();
+		
+		// after we know the position create hotspot "on-the-fly"
+		$.fn.axZm.createNewHotspot({
+			// generate some image name 
+			// image name could contain the creation date and time
+			// you might also want to get it from server before creating hotspot 
+			// or calculate the difference between server time and client time as it is done here
+			// prepend the hotspot name with some random string anyway
+			name: Math.random().toString(36).substring(2) + "_" + ((new Date()).getTime() - ajaxZoom.timeDiff), 
+			autoTitle: false, // we do not want alt title to be like hotspot name
+			autoPos: false, // we know at wich positions to put hotspot at (posObj)
+			noInit: false, // we want that the hotspot is added right away
+			draggable: true, // and it should be draggable
+			noRightClickRemove: false, // could be removed with right mouse click
+			posObj: posObj, // our coordinates
+			settings: {
+				shape: "rect", // shape is point (not rect)
+				altTitle: false, // mouseover title is disabled
+				labelGravity: "bottom", // position of the title shown as label
+				labelOffsetY: -2, // vertical offset of the label
+				hotspotImage: "hotspot64_map_red.png", // default image from /axZm/icons
+				gravity: "top", // important - display hotspot image above the click point
+				width: 32, // width of the icon
+				height: 32, // height of the icon
+				
+				/* tooltip settings */
+				toolTipWidth: 300, // width of the tooltip
+				toolTipHeight: 120, // min-height of the tooltip
+				toolTipGravity: "left", // show tooltip left to the hotspot
+				toolTipAutoFlip: true, // but also right depending on position
+				toolTipAdjustX: 25, // horizontal space between hotspot and toolTip
+				toolTipCloseIcon: "close_blue_16.png", // close button icon from /axZm/icons
+				toolTipCloseIconOffset: {right: 5, top: 5}, // position of the close button
+				toolTipOverlayShow: false, // do not show overlayes
+				
+				// toolTipTitle can be also a JS function 
+				toolTipTitle: ajaxZoom.toolTipTitle,
+				
+				// toolTipHtml can be also a JS function which returns something
+				toolTipHtml: ajaxZoom.toolTipHtml
+			},
+			// callback after hotspot is added
+			callback: function(info){
+				// we have created the hotspot so update ajaxZoom.myTags
+				ajaxZoom.myTags[info.name] = {};
+				
+				// save / update console
+				ajaxZoom.updateConsole();
+				
+				// trigger tooltip after it has been added
+				// if you remove the line below the user would need to extra click on the hotspot
+				$("#axZmHotspot_"+info.name).trigger("click");
+			}
+		});
+		
+		// important to return false; otherwise AJAX-ZOOM will zoom
+		return false; 
+	};
 	// AJAX-ZOOM callbacks
 	ajaxZoom.opt = {
 		// some (not all) options from /axZm/zoomConfig.inc.php and 
@@ -760,7 +850,13 @@ function myFunction(arg1){
 			};
 			// function when clicked on this custom button (mCustomBtn1)
 				jQuery.axZm.mNavi.mCustomBtn3 = function(){
-					jQuery.aZcropEd.jCropMethod('toggle');
+					var temp=jQuery.aZcropEd.jCropMethod('toggle');
+					if(temp!='undefined'){
+						readJsonData(temp);
+					console.log("Ex12 >>>"+temp);
+					}
+					
+				
 					return false;
 				};
 

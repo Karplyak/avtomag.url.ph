@@ -23,14 +23,7 @@ var effectObj = [
 		{val: 8, txt: "8. Zoom out, spin with extra round, zoom in after spinning"},
 		{val: 'rand', txt: "9: Randomly from the above"}
 	],
-	jsonData,
-	setData=function(data) {
-    jsonData = data;
-	};
-	getData=function() {
-    return jsonData;
-	};
-	//var jsonData,
+	
 	axZmEbGravity = [
 		{val: "top", txt: "Top"},
 		{val: "topRight", txt: "Top - Right"},
@@ -592,9 +585,8 @@ var effectObj = [
 						zIndex: 6
 					})
 					.click(function(){
-						setData(jCropFire2());
 						$('#customBtn_mCustomBtn3').trigger('click').trigger('mouseleave');
-					//console.log("mCustomBtn3 click \n");
+					console.log("mCustomBtn3 click \n");
 					}).appendTo("#test");
 		jcrop_az.jcropStatus.css({
 			// Change visibility depending on Jcrop size
@@ -641,14 +633,11 @@ var effectObj = [
  		
  		if (method == 'init'){
 			// Destroy Jcrop if inited
-			setData('undefined');
 			if (jcrop_api){
 				jCropMethod('destroy');
 				jcrop_api = null;
-				setData('undefined');
 				// Remove layer to which jCrop will be attached within AJAX-ZOOM
 				$('#azCropLayer').remove();
-				
 			}
 
 			// Create and add layer to which jCrop will be attached within AJAX-ZOOM
@@ -669,8 +658,8 @@ var effectObj = [
 				// Fired on select end
 				onSelect: function(a){
 					//console.log(a);
-					//console.log("hello!!");
-					//console.log("onSelect\n");
+					console.log("hello!!");
+					console.log("onSelect\n");
 				},
 				onChange: function(a){
 					jCropOnChange(a);
@@ -679,7 +668,7 @@ var effectObj = [
 				onRelease: function(){
 					// Destroy Jcrop if the user clicks at the not selected area to enable zoom and pan again
 					jCropMethod('destroy');
-					//console.log("onRelease\n");
+					console.log("onRelease\n");
 				},
 				// Expand to max, useful?
 				onDblClick: function(){
@@ -687,7 +676,7 @@ var effectObj = [
 		      			ww = $.axZm.iw, 
 		      			hh = $.axZm.ih,
 		      			prc = 1;
-		      		//	console.log("onDblClick\n");
+		      			console.log("onDblClick\n");
 			        jcrop_api.animateTo([
 		        		(bounds[0] - ww)/2 + ww, //x1
 		        		(bounds[1] - hh)/2 + hh, //y1
@@ -818,14 +807,10 @@ var effectObj = [
 						zIndex: 666
 					})
 					.click(function(){
-				//	console.log("DataF before\n"+ jsonData);
-						//jsonData=jCropFire2();
-						setData(jCropFire2());
-						//console.log("DataFire2\n"+ jsonData);
-						//console.log("DataFire2\n"+ getData());
-						//return jsonData;
+						jCropFire2();
 						$('#customBtn_mCustomBtn3').trigger('click').trigger('mouseleave');
-					//console.log("mCustomBtn3 click \n");
+						
+					console.log("mCustomBtn3 click \n");
 					})
 					.appendTo(
 						$('#axZm_zoomLayer>.jcrop-holder>div:first-child')
@@ -838,6 +823,7 @@ var effectObj = [
 			// upon jcrop_api we know if Jcrop is inited or not
 			//return .data;
 			jcrop_api = null;
+			console.log("jcrop_api.destroy();");
 			
 		}
 		else if (method == 'toggle'){
@@ -853,7 +839,7 @@ var effectObj = [
 		else if (jcrop_api){
 			jcrop_api[method](opt);
 		}
-			return getData(); 
+			//return jcrop_api; 
 	},
 	
 	// Toggle Jcrop and AJAX-ZOOM thumbnail settings popup
@@ -878,7 +864,7 @@ var effectObj = [
 			$.fn.axZm.zoomAlert('Please wait until the last job is finished', 'Please wait', null, true);
 			return false;
 		}
-		//console.log(">>>>jCropFire<<<<<");
+		console.log(">>>>jCropFire<<<<<");
 		// Set cropping status
 		jcrop_az.busyCropping = true;
 				
@@ -892,7 +878,7 @@ var effectObj = [
 			if (answer){
 				// Get what is visible
 				var gCV =  $.fn.axZm.getCropValues();
-				//console.log("&x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
+				console.log("&x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
 			}else{
 				// Reset busy status and return false
 				jcrop_az.busyCropping = false;
@@ -909,7 +895,7 @@ var effectObj = [
 			
 			// Get "Real" values from AZ to crop (in regard to original image)
 			var gCV =  $.fn.axZm.getCropValues([a.x, a.y, a.x2, a.y2]);
-			//console.log("else &x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
+			console.log("else &x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
 		}
 		
 		// This is path to /axZm folder
@@ -947,7 +933,7 @@ var effectObj = [
 			
 			// Get all headers
 			//console.log(jqXHR.getAllResponseHeaders())
-//console.log(">>>><<<<<");
+console.log(">>>><<<<<");
 			// Read header content type
 			var contentType = jqXHR.getResponseHeader('Content-Type');
 			
@@ -1025,7 +1011,7 @@ var effectObj = [
 			$.fn.axZm.zoomAlert('Please wait until the last job is finished', 'Please wait', null, true);
 			return false;
 		}
-		//console.log(">>>>jCropFire2<<<<<");
+		console.log(">>>>jCropFire<<<<<");
 		// Set cropping status
 		jcrop_az.busyCropping = true;
 				
@@ -1040,7 +1026,7 @@ var effectObj = [
 			
 			// Get "Real" values from AZ to crop (in regard to original image)
 			var gCV =  $.fn.axZm.getCropValues([a.x, a.y, a.x2, a.y2]);
-			//console.log("else &x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
+			console.log("else &x1="+gCV[1][0]+"&y1="+gCV[1][1]+ "&x2="+gCV[1][2]	+ "&y2="+gCV[1][3]);
 		}
 		
 		
@@ -1049,7 +1035,7 @@ var effectObj = [
 			
 			// Get all headers
 			//console.log(jqXHR.getAllResponseHeaders())
-			//console.log(">>>><<<<<");
+			console.log(">>>><<<<<");
 			// Read header content type
 			
 			// If the return is an image
@@ -1061,7 +1047,6 @@ var effectObj = [
 					//jcrop_az.countThumbs++;
 					
 					// Define information to store in jQuery data
-					//console.log(">>>>Data<<<<<");
 					var dataObj = {
 						thumbNumber: jcrop_az.countThumbs,
 						crop: gCV[1],
@@ -1072,13 +1057,25 @@ var effectObj = [
 						//contentLocation: contentLocation,
 						azPar: $.fn.axZm.getParameter()
 					};
-					//console.log(">>>><<<<<" + dataObj);
+					console.log(">>>><<<<<" + dataObj);
 					// Save everything in separate object
-					//jcrop_az.allCrops[jcrop_az.countThumbs] = dataObj;}
-									//
+					//jcrop_az.allCrops[jcrop_az.countThumbs] = dataObj;
+									
+			//}
 			
+			// Not an image returned
+		/*	else if (textStatus == 'success'){
+				// Alert
+				//imgCropperPath
+				$.fn.axZm.zoomAlert('The return from:<br>'+imgCropperPath + '<br>was not an image!<br><br>Return text: '+responseText, 'Error creating a crop', null, true, true, null);
+			}
 			
+			// Something else
+			else if (textStatus != 'success'){
+				$.fn.axZm.zoomAlert(responseText, 'Error occurred', null, true, true, null);
+			}*/
 			
+		//});
 		return dataObj;
 	},
 	deleteCropAction = function(num){
@@ -1838,7 +1835,7 @@ var effectObj = [
 		jCropAspectAsImage: jCropAspectAsImage,
 		jCropFixedSize: jCropFixedSize,
 		jCropOnChange: function(a){jCropOnChange(a)},
-		jCropMethod: function(a, b){return jCropMethod(a, b)},
+		jCropMethod: function(a, b){jCropMethod(a, b)},
 		jCropSettingsPopup: jCropSettingsPopup,
 		jCropFire: jCropFire,
 		changeLang: function(a){changeLang(a)},
